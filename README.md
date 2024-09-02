@@ -4,6 +4,12 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
+## Project scaffolding
+
+```shell
+quarkus create app com.bkuberek:booking-service --extension='quarkus-jdbc-postgresql,quarkus-reactive-pg-client,quarkus-jdbi,quarkus-liquibase,quarkus-grpc'
+```
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
