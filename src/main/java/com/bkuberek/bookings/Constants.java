@@ -1,8 +1,7 @@
-package com.bkuberek;
-
-import org.apache.commons.lang3.tuple.Pair;
+package com.bkuberek.bookings;
 
 import java.time.LocalTime;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class Constants {
   private Constants() {}

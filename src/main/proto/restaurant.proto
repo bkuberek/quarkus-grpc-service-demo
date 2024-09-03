@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bkuberek.bookings.grpc.services";
+option java_outer_classname = "RestaurantGrpcProto";
+
+package com.bkuberek.bookings.services;
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+
+service RestaurantGrpc {
+    rpc AllRestaurants (EmptyRequest) returns (RestaurantInfoList) {}
+    rpc GetRestaurantById (GetRestaurantByIdRequest) returns (RestaurantInfo) {}
+    rpc GetRestaurantsById (GetRestaurantsByIdRequest) returns (RestaurantInfoList) {}
+    rpc GetRestaurantsByName (GetRestaurantsByNameRequest) returns (RestaurantInfoList) {}
+    rpc FindRestaurantsWithEndorsements (FindRestaurantsWithEndorsementsRequest) returns (RestaurantInfoList) {}
+    rpc GetAvailableTables (GetAvailableTablesRequest) returns (RestaurantTablesAvailable) {}
+    rpc FindTable (FindTableRequest) returns (FindTableResponse) {}
+}
+
+message GetRestaurantByIdRequest {
+    string id = 1;
+}
+
+message GetRestaurantsByIdRequest {
+    repeated string ids = 1;
+}
+
+message GetRestaurantsByNameRequest {
+    repeated string names = 1;
+}
+
+message FindRestaurantsWithEndorsementsRequest {
+    repeated Endorsement endorsements = 1;
+}
+
+message GetAvailableTablesRequest {
+    string restaurantId = 1;
+    uint32 size = 2;
+    google.protobuf.Timestamp time = 3;
+}
+
+message FindTableRequest {
+    uint32 size = 1;
+    google.protobuf.Timestamp time = 2;
+    repeated Endorsement endorsements = 3;
+}
+
+message FindTableResponse {
+    repeated RestaurantTablesAvailable available = 1;
+}
+
+message RestaurantTablesAvailable {
+    string id = 1;
+    string name = 2;
+    uint32 size = 3;
+    repeated Endorsement endorsements = 4;
+    repeated TableInfo tables = 5;
+    repeated TableInfo occupiedTables = 6;
+    repeated TableInfo availableTables = 7;
+}

@@ -63,7 +63,7 @@ public interface RestaurantDao {
                 ORDER BY r_name, t_size;
             """)
   @UseRowReducer(RestaurantRowReducer.class)
-  List<RestaurantEntity> getByIds(List<UUID> id);
+  List<RestaurantEntity> getByIds(@BindList("ids") List<UUID> ids);
 
   @SqlQuery
   @UseClasspathSqlLocator

@@ -79,7 +79,10 @@ Describe the service
 ```shell
 grpcurl -plaintext localhost:9000 list
 ```
+
 ```
+com.bkuberek.bookings.services.ReservationGrpc
+com.bkuberek.bookings.services.RestaurantGrpc
 grpc.health.v1.Health
 hello.HelloGrpc
 ```
@@ -87,6 +90,7 @@ hello.HelloGrpc
 ```shellshell
 grpcurl -plaintext localhost:9000 describe hello.HelloGrpc
 ```
+
 ```
 hello.HelloGrpc is a service:
 service HelloGrpc {
@@ -99,8 +103,52 @@ Query the service
 ```shell
 grpcurl -plaintext -d '{"name": "there"}' localhost:9000 hello.HelloGrpc.SayHello
 ```
+
 ```
 {
   "message": "Hello there!"
 }
+```
+
+Describe Services
+
+```shell
+grpcurl -plaintext localhost:9000 describe com.bkuberek.bookings.services.RestaurantGrpc
+```
+
+```
+com.bkuberek.bookings.services.RestaurantGrpc is a service:
+service RestaurantGrpc {
+  rpc AllRestaurants ( .com.bkuberek.bookings.EmptyRequest ) returns ( .com.bkuberek.bookings.RestaurantInfoList );
+  rpc FindRestaurantsWithEndorsements ( .com.bkuberek.bookings.services.FindRestaurantsWithEndorsementsRequest ) returns ( .com.bkuberek.bookings.RestaurantInfoList );
+  rpc FindTable ( .com.bkuberek.bookings.services.FindTableRequest ) returns ( .com.bkuberek.bookings.services.FindTableResponse );
+  rpc GetAvailableTables ( .com.bkuberek.bookings.services.GetAvailableTablesRequest ) returns ( .com.bkuberek.bookings.services.RestaurantTablesAvailable );
+  rpc GetRestaurantById ( .com.bkuberek.bookings.services.GetRestaurantByIdRequest ) returns ( .com.bkuberek.bookings.RestaurantInfo );
+  rpc GetRestaurantsById ( .com.bkuberek.bookings.services.GetRestaurantsByIdRequest ) returns ( .com.bkuberek.bookings.RestaurantInfoList );
+  rpc GetRestaurantsByName ( .com.bkuberek.bookings.services.GetRestaurantsByNameRequest ) returns ( .com.bkuberek.bookings.RestaurantInfoList );
+}
+```
+
+```shell
+ grpcurl -plaintext localhost:9000 describe com.bkuberek.bookings.services.GetAvailableTablesRequest
+```
+```
+com.bkuberek.bookings.services.GetAvailableTablesRequest is a message:
+message GetAvailableTablesRequest {
+  string restaurantId = 1;
+  uint32 size = 2;
+  .google.protobuf.Timestamp time = 3;
+}
+```
+
+Get All Restaurants
+
+```shell
+grpcurl -plaintext -d '{}' localhost:9000 com.bkuberek.bookings.services.RestaurantGrpc.AllRestaurants | jq .
+```
+
+Find Restaurants With Endorsements
+
+```shell
+grpcurl -plaintext -d '{"endorsements":["gluten"]}' localhost:9000 com.bkuberek.bookings.services.RestaurantGrpc.FindRestaurantsWithEndorsements | jq .
 ```

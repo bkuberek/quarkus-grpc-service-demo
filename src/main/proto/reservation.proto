@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bkuberek.bookings.grpc.services";
+option java_outer_classname = "ReservationGrpcProto";
+
+package com.bkuberek.bookings.services;
+
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+
+service ReservationGrpc{
+    rpc GetReservation (GetReservationRequest) returns (ReservationInfo) {}
+    rpc GetReservations (GetReservationsRequest) returns (ReservationInfoList) {}
+    rpc CreateReservation (CreateReservationRequest) returns (CreateReservationResponse) {}
+    rpc DeleteReservation (DeleteReservationRequest) returns (DeleteReservationResponse) {}
+}
+
+message GetReservationRequest {
+    string id = 1;
+}
+
+message GetReservationsRequest {
+    string name = 1;
+    string restaurantId = 2;
+}
+
+message CreateReservationRequest {
+    string restaurantId = 1;
+    string name = 2;
+    uint32 size = 3;
+    repeated Endorsement restrictions = 4;
+    google.protobuf.Timestamp reservationTime = 5;
+}
+
+message CreateReservationResponse {
+    ReservationInfo info = 1;
+}
+
+message DeleteReservationRequest {
+    string id = 1;
+}
+
+message DeleteReservationResponse {
+    ReservationInfo info = 1;
+}

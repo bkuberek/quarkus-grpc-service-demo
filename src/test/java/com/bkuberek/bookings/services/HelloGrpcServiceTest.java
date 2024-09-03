@@ -1,9 +1,12 @@
-package com.bkuberek;
+package com.bkuberek.bookings.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 
+import com.bkuberek.HelloGrpc;
+import com.bkuberek.HelloReply;
+import com.bkuberek.HelloRequest;
 import io.quarkus.grpc.GrpcClient;
 import io.quarkus.test.junit.QuarkusTest;
 

@@ -48,6 +48,27 @@ public record ReservationEntity(
       Boolean isActive,
       RestaurantEntity restaurant,
       ZonedDateTime reservationTime,
+      Set<Endorsement> restrictions) {
+    this(
+        id,
+        name,
+        size,
+        isActive,
+        restaurant,
+        reservationTime,
+        null,
+        null,
+        restrictions,
+        Collections.emptyList());
+  }
+
+  public ReservationEntity(
+      UUID id,
+      String name,
+      Integer size,
+      Boolean isActive,
+      RestaurantEntity restaurant,
+      ZonedDateTime reservationTime,
       ZonedDateTime createdTime,
       ZonedDateTime updatedTime) {
     this(

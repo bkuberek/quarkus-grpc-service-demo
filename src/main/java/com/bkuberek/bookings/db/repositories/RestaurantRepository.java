@@ -1,6 +1,6 @@
 package com.bkuberek.bookings.db.repositories;
 
-import com.bkuberek.Constants;
+import com.bkuberek.bookings.Constants;
 import com.bkuberek.bookings.db.Endorsement;
 import com.bkuberek.bookings.db.dao.RestaurantDao;
 import com.bkuberek.bookings.db.entities.RestaurantEntity;
@@ -23,28 +23,28 @@ public class RestaurantRepository {
     this.jdbi = jdbiExecutor;
   }
 
-  Uni<List<RestaurantEntity>> listAll() {
+  public Uni<List<RestaurantEntity>> listAll() {
     return Uni.createFrom()
         .completionStage(() -> jdbi.withExtension(RestaurantDao.class, RestaurantDao::listAll));
   }
 
-  Uni<RestaurantEntity> getById(UUID id) {
+  public Uni<RestaurantEntity> getById(UUID id) {
     return Uni.createFrom()
         .completionStage(() -> jdbi.withExtension(RestaurantDao.class, dao -> dao.getById(id)));
   }
 
-  Uni<List<RestaurantEntity>> getByIds(List<UUID> ids) {
+  public Uni<List<RestaurantEntity>> getByIds(List<UUID> ids) {
     return Uni.createFrom()
         .completionStage(() -> jdbi.withExtension(RestaurantDao.class, dao -> dao.getByIds(ids)));
   }
 
-  Uni<List<RestaurantEntity>> findByName(List<String> names) {
+  public Uni<List<RestaurantEntity>> findByName(List<String> names) {
     return Uni.createFrom()
         .completionStage(
             () -> jdbi.withExtension(RestaurantDao.class, dao -> dao.findByName(names)));
   }
 
-  Uni<List<RestaurantEntity>> findRestaurantsByEndorsement(List<Endorsement> endorsements) {
+  public Uni<List<RestaurantEntity>> findRestaurantsByEndorsement(List<Endorsement> endorsements) {
     return Uni.createFrom()
         .completionStage(
             () ->
@@ -52,7 +52,7 @@ public class RestaurantRepository {
                     RestaurantDao.class, dao -> dao.findRestaurantsByEndorsement(endorsements)));
   }
 
-  Uni<RestaurantTableAvailability> getAvailableTables(
+  public Uni<RestaurantTableAvailability> getAvailableTables(
       UUID restaurantId, Integer size, ZonedDateTime time) {
     return Uni.createFrom()
         .completionStage(
@@ -72,7 +72,7 @@ public class RestaurantRepository {
                             .orElse(null)));
   }
 
-  Uni<List<RestaurantTableAvailability>> findRestaurantsWithAvailableTable(
+  public Uni<List<RestaurantTableAvailability>> findRestaurantsWithAvailableTable(
       Integer size, ZonedDateTime time) {
     return Uni.createFrom()
         .completionStage(
@@ -87,8 +87,8 @@ public class RestaurantRepository {
                             Constants.RESERVATION_DURATION_SQL_INTERVAL)));
   }
 
-  Uni<List<RestaurantTableAvailability>> findRestaurantsWithAvailableTableAndRestrictions(
-      Integer size, List<Endorsement> restrictions, ZonedDateTime time) {
+  public Uni<List<RestaurantTableAvailability>> findRestaurantsWithAvailableTableAndRestrictions(
+      Integer size, ZonedDateTime time, List<Endorsement> restrictions) {
     return Uni.createFrom()
         .completionStage(
             () ->

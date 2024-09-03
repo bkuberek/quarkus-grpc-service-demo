@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bkuberek.bookings.grpc";
+option java_outer_classname = "CommonProto";
+
+package com.bkuberek.bookings;
+
+import "google/protobuf/timestamp.proto";
+
+enum Endorsement {
+    gluten = 0;
+    paleo = 1;
+    vegan = 2;
+    vegetarian = 3;
+}
+
+message EmptyRequest {
+}
+
+message RestaurantInfoList {
+    repeated RestaurantInfo restaurants = 1;
+}
+
+message RestaurantInfo {
+    string id = 1;
+    string name = 2;
+    repeated Endorsement endorsements = 3;
+    repeated TableInfo tables = 4;
+}
+
+message TableInfo {
+    uint32 size = 1;
+    uint32 quantity = 2;
+}
+
+message ReservationInfoList {
+    repeated ReservationInfo reservations = 1;
+}
+
+message ReservationInfo {
+    string id = 1;
+    RestaurantInfo restaurant = 2;
+    string name = 3;
+    uint32 size = 4;
+    bool isActive = 5;
+    repeated Endorsement restrictions = 6;
+    repeated TableInfo tables = 7;
+    google.protobuf.Timestamp reservationTime = 8;
+    google.protobuf.Timestamp createdTime = 9;
+    google.protobuf.Timestamp updatedTime = 10;
+}

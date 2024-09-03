@@ -19,13 +19,13 @@ public class ReservationRepository {
     this.jdbi = jdbiExecutor;
   }
 
-  Uni<Set<ReservationEntity>> listAllForUser(String name) {
+  public Uni<Set<ReservationEntity>> listAllForUser(String name) {
     return Uni.createFrom()
         .completionStage(
             () -> jdbi.withExtension(ReservationDao.class, dao -> dao.listAllForUser(name)));
   }
 
-  Uni<Set<ReservationEntity>> listAllForUserAndRestaurant(String name, UUID restaurantId) {
+  public Uni<Set<ReservationEntity>> listAllForUserAndRestaurant(String name, UUID restaurantId) {
     return Uni.createFrom()
         .completionStage(
             () ->
@@ -34,17 +34,17 @@ public class ReservationRepository {
                     dao -> dao.listAllForUserAndRestaurant(name, restaurantId)));
   }
 
-  Uni<ReservationEntity> getById(UUID id) {
+  public Uni<ReservationEntity> getById(UUID id) {
     return Uni.createFrom()
         .completionStage(() -> jdbi.withExtension(ReservationDao.class, dao -> dao.getById(id)));
   }
 
-  Uni<Set<ReservationEntity>> getById(Set<UUID> ids) {
+  public Uni<Set<ReservationEntity>> getById(Set<UUID> ids) {
     return Uni.createFrom()
         .completionStage(() -> jdbi.withExtension(ReservationDao.class, dao -> dao.getByIds(ids)));
   }
 
-  Uni<ReservationEntity> createReservation(ReservationEntity reservation) {
+  public Uni<ReservationEntity> createReservation(ReservationEntity reservation) {
     return Uni.createFrom()
         .completionStage(
             () ->

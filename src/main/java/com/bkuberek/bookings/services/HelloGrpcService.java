@@ -1,5 +1,8 @@
-package com.bkuberek;
+package com.bkuberek.bookings.services;
 
+import com.bkuberek.HelloGrpc;
+import com.bkuberek.HelloReply;
+import com.bkuberek.HelloRequest;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Uni;
 
